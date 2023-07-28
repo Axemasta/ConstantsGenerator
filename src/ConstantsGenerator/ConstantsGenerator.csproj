@@ -9,6 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Constants.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Constants.json" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\ConstantsGenerator.SourceGenerators\ConstantsGenerator.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
