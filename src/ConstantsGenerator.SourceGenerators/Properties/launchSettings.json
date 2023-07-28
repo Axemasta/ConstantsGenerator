@@ -2,7 +2,7 @@
   "profiles": {
     "Debug": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\DebugApp\\DebugApp.csproj"
+      "targetProject": "..\\ConstantsGenerator\\ConstantsGenerator.csproj"
     }
   }
 }

@@ -411,3 +411,6 @@ FodyWeavers.xsd
 
 # Rider ignore
 **/.idea/**/*
+
+# Source generated files
+**/*.g.cs
