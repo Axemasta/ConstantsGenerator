@@ -1,8 +1,12 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstantsGenerator", "src/ConstantsGenerator/ConstantsGenerator.csproj", "{335A8FF9-B498-46E2-AF6E-3B706BE55CD6}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstantsGenerator", "src\ConstantsGenerator\ConstantsGenerator.csproj", "{335A8FF9-B498-46E2-AF6E-3B706BE55CD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstantsGenerator.SourceGenerators", "src\ConstantsGenerator.SourceGenerators\ConstantsGenerator.SourceGenerators.csproj", "{BFD82BA0-C309-457F-B817-30A3430A25D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstantsGenerator.SourceGenerators", "src\ConstantsGenerator.SourceGenerators\ConstantsGenerator.SourceGenerators.csproj", "{BFD82BA0-C309-457F-B817-30A3430A25D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugApp", "src\DebugApp\DebugApp.csproj", "{FDD0A36D-C192-402A-8F4A-0964BB4DA561}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,12 @@ Global
 		{BFD82BA0-C309-457F-B817-30A3430A25D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFD82BA0-C309-457F-B817-30A3430A25D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFD82BA0-C309-457F-B817-30A3430A25D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD0A36D-C192-402A-8F4A-0964BB4DA561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD0A36D-C192-402A-8F4A-0964BB4DA561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD0A36D-C192-402A-8F4A-0964BB4DA561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD0A36D-C192-402A-8F4A-0964BB4DA561}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
