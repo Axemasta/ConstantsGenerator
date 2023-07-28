@@ -1,8 +1,9 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
-using Newtonsoft.Json;
 using System.Collections.Immutable;
 using System.Text;
+using System.Text.Json;
+
 namespace ConstantsGenerator.SourceGenerators;
 
 [Generator]
@@ -28,7 +29,7 @@ public class ConstantSourceGenerator : IIncrementalGenerator
 
         var constantsJson = args.First();
 
-        var constants = JsonConvert.DeserializeObject<Dictionary<string, string>>(constantsJson);
+        var constants = JsonSerializer.Deserialize<Dictionary<string, string>>(constantsJson);
 
         if (constants is null)
         {
