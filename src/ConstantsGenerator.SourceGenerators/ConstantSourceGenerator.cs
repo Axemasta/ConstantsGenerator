@@ -1,32 +1,41 @@
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using System.Collections.Immutable;
+using System.Text;
+using System.Text.Json;
 namespace ConstantsGenerator.SourceGenerators;
 
 [Generator]
-public class ConstantSourceGenerator : ISourceGenerator
+public class ConstantSourceGenerator : IIncrementalGenerator
 {
-    private readonly static Dictionary<string, string> ConstantsKeys = new Dictionary<string, string>()
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        { "KeyOne", "From source 1" },
-        { "KeyTwo", "Skip dip dip" },
-    };
+        var constants = context.AdditionalTextsProvider
+            .Where(text => text.Path.EndsWith("Constants.json", StringComparison.OrdinalIgnoreCase))
+            .Select((text, token) => text.GetText(token)?.ToString())
+            .Where(text => text is not null)!
+            .Collect<string>();
 
-    public void Initialize(GeneratorInitializationContext context)
-    {
+        context.RegisterSourceOutput(constants, GenerateCode);
     }
 
-    public void Execute(GeneratorExecutionContext context)
+    private static void GenerateCode(SourceProductionContext context, ImmutableArray<string> args)
     {
-        // Find main entry point
-        var mainMethod = context.Compilation.GetEntryPoint(context.CancellationToken);
-
-        if (mainMethod is null)
+        if (!args.Any())
         {
             return;
         }
 
-        var source = GenerateSource(mainMethod.ContainingNamespace.ToDisplayString(), ConstantsKeys);
+        var constantsJson = args.First();
+
+        var constants = JsonSerializer.Deserialize<Dictionary<string, string>>(constantsJson);
+
+        if (constants is null)
+        {
+            return;
+        }
+
+        var source = GenerateSource("GeneratedConstants", constants);
 
         context.AddSource("Constants.g.cs", SourceText.From(source, Encoding.UTF8));
     }
@@ -58,17 +67,13 @@ public static class Constants
 
         sb.Append(source);
 
-        var newLine = @"
-";
-
-        sb.Append(newLine);
-
         int i = 0;
 
         foreach (var property in formattedProperties)
         {
             if (i > 0)
             {
+                sb.AppendLine();
                 sb.AppendLine();
             }
 

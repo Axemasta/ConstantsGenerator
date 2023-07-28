@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp;
+﻿using GeneratedConstants;
+
+namespace ConsoleApp;
 
 partial class Program
 {
