@@ -1,4 +1,5 @@
-﻿using GeneratedConstants;
+using ConstantsGenerator;
+
 namespace ConsoleApp;
 
 public static class Program

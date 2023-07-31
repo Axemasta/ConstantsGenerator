@@ -10,23 +10,27 @@ public class ConstantSourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+        var assemblyName = context.CompilationProvider.Select(static (c, _) => c.AssemblyName);
+
         var constants = context.AdditionalTextsProvider
             .Where(text => text.Path.EndsWith("Constants.json", StringComparison.OrdinalIgnoreCase))
             .Select((text, token) => text.GetText(token)?.ToString())
             .Where(text => text is not null)!
             .Collect<string>();
 
-        context.RegisterSourceOutput(constants, GenerateCode);
+        var combined = constants.Combine(assemblyName);
+
+        context.RegisterSourceOutput(combined, GenerateCode);
     }
 
-    private static void GenerateCode(SourceProductionContext context, ImmutableArray<string> args)
+    private static void GenerateCode(SourceProductionContext context, (ImmutableArray<string> Constants, string? AssemblyName) args)
     {
-        if (!args.Any())
+        if (!args.Constants.Any())
         {
             return;
         }
 
-        var constantsJson = args.First();
+        var constantsJson = args.Constants.First();
 
         var constants = JsonSerializer.Deserialize<Dictionary<string, string>>(constantsJson);
 
@@ -35,7 +39,11 @@ public class ConstantSourceGenerator : IIncrementalGenerator
             return;
         }
 
-        var source = GenerateSource("GeneratedConstants", constants);
+        var ns = args.AssemblyName != null
+            ? args.AssemblyName
+            : "GeneratedConstants";
+
+        var source = GenerateSource(ns, constants);
 
         context.AddSource("Constants.g.cs", SourceText.From(source, Encoding.UTF8));
     }
