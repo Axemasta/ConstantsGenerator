@@ -1,9 +1,8 @@
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 using System.Collections.Immutable;
 using System.Text;
 using System.Text.Json;
-
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 namespace ConstantsGenerator.SourceGenerators;
 
 [Generator]
@@ -68,7 +67,7 @@ public static class Constants
 
         sb.Append(source);
 
-        int i = 0;
+        var i = 0;
 
         foreach (var property in formattedProperties)
         {
